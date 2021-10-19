@@ -32,13 +32,16 @@ namespace FuturiceCalculator.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CalcResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult Get(string query)
         {
             CalcResponse calcResponse;
+            
             try
-            { 
+            {
+                query = query ?? throw new ArgumentNullException(nameof(query));
+
                 decimal result = _expressionParserService.EvaluateExpression(query);
 
                 calcResponse = new CalcResponse() { Number = result,Error = false };

@@ -25,6 +25,11 @@ namespace FuturiceCalculator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(setup =>
+            {
+                setup.UseAllOfToExtendReferenceSchemas();
+            });
+
             services.AddControllers();
             services.AddWebServices();
         }
@@ -47,6 +52,9 @@ namespace FuturiceCalculator
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger()
+               .UseSwaggerUI();
         }
     }
 }

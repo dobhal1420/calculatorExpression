@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuturiceCalculator", "FuturiceCalculator\FuturiceCalculator.csproj", "{98143222-C146-40EB-B549-14C6D9EE6043}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuturiceCalculatorTests", "FuturiceCalculatorTests\FuturiceCalculatorTests.csproj", "{B83D5B70-5C3D-4316-A3C5-0016C6CE0689}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{98143222-C146-40EB-B549-14C6D9EE6043}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98143222-C146-40EB-B549-14C6D9EE6043}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98143222-C146-40EB-B549-14C6D9EE6043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B83D5B70-5C3D-4316-A3C5-0016C6CE0689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B83D5B70-5C3D-4316-A3C5-0016C6CE0689}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B83D5B70-5C3D-4316-A3C5-0016C6CE0689}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B83D5B70-5C3D-4316-A3C5-0016C6CE0689}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
