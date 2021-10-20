@@ -34,9 +34,9 @@ namespace FuturiceCalculator.Service
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _logger.LogError("Evaluate Expression failed", ex);
                 throw;
             }
 
