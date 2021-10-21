@@ -131,10 +131,10 @@ This project is deployed on AWS. Following services are created from AWS Console
   * The *xUnit* testing framework has been used for integration/unit test.
   * *Moq* framework has been used for mocking the service.
   * This framework includes following packages of classes that provides support for developing and executing unit tests:
-    - CalculatorControllerTest.cs
+    - *CalculatorControllerTest.cs*
       -  TestWhenGetAllCalculatorControllerNullQueryParameter - This method validates the test case when null value is passed from GET method.
       -  TestWhenGetAllCalculatorControllerExpressionQueryParameter - This method sends the response when a valid string/expression is passed from GET method.
-    - ExpressionParserServiceTest.cs
+    - *ExpressionParserServiceTest.cs*
       - TestNegativeDataIncorrectFormatExpressionParserService - This method validates incorrect format of the expression such as "2/0"
       - TestNegativeDataVariableExpressionParserService - This method validates a scenario when the expression cannot be evaluated. eg. "a+b"
       - TestNegativeDataSpecialCharacterExpressionParserService - This method validates a scenario when expression contains a syntax error
