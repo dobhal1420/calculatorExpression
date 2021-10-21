@@ -15,7 +15,7 @@ Application Web API is designed in Asp Dot Net core and deployed in AWS leveragi
   * **Lambda Function** - For scalability and reliability
 
 ## Contents
-  * [API Reference]()
+  * [API Reference](#project-architecture)
   * [Project Architecture]()
   * [Code Flow]()
   * [Deployment Strategy]()
