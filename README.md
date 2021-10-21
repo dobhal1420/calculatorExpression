@@ -15,24 +15,29 @@ Application Web API is designed in Asp Dot Net core and deployed in AWS leveragi
   * **Lambda Function** - For scalability and reliability
 
 ## Contents
-  * [API Reference](#project-architecture)
-  * [Project Architecture]()
-  * [Code Flow]()
-  * [Deployment Strategy]()
-  * [Tests]()
+  * [API Reference](#api-reference)
+  * [Project Architecture](#project-architecture)
+  * [Code Flow](#code-flow)
+  * [Deployment Strategy](#deployment-strategy)
+  * [Tests](#tests)
 
 
 ## API Reference
+
+#### Swagger:
+
+#### Get item:
    
 ```http
-  GET /calculus?query=[input]
+  GET /calculus?query={input}
 ```
 
 | Parameter    | Type     | Description                                    |
 | :----------- | :------- | :--------------------------------------------- |
 | `query`      | `string` | **Required**. query to perform calculations on |
 
-
+#### Evaluate expression:
+'2 * (23/(3*3))- 23 * (2*3)'
 
 ## Project Architecture
 
@@ -52,16 +57,34 @@ This project is deployed on AWS. Following services are created from AWS Console
 2. **API Gateway** 
    * HTTP API created in AWS API Gateway
 3. **AWS Lambda**
-   * Deployed Dot net core Api to AWS Lambda.
-  * Install the AWS Lambda Extensions for the dotnet CLI with the command dotnet tool.This tool enables you to package and deploy .NET Core applications to Lambda.
+   * Deployed Dot net core Api to AWS Lambda
+
+#### Create AWS VPC:
+
+  * VPC is created on CIDR block 10.0.0.0/16
+  * 2 route tables are availble inside this VPC
+     - Main route table: This is default route table created by default when a VPC is created.
+     - Custom route table: This custom route table is created to allow public subnets to connect to the internet
+  * Security Groups
+  * 2 Public Subnets created in 2 different availablility zones in order to make the system highly available and fault tolerant.
+
+#### Create API Gateway:
+
+  * The API solution created in Dot Net Core is deployed on API Gateway.
+  * This gateway connects with the 2 public subnets which further connects to the internet via Internet Gateway
+
+#### Create Lambda Function:
+
+  * Install the AWS Lambda Extensions for the dotnet CLI with the command dotnet tool. This tool enables you to package and deploy .NET Core applications to Lambda.
   ```
   install -g Amazon.Lambda.Tools
   ```
 
-  * Run the command To generate a zip file of the API that can be deployed to AWS Lambda (located in /bin/Release/netcoreapp3.1/FuturiceCalculator.zip). 
+  * Run the below command to generate a zip file of the API that can be deployed to AWS Lambda (located in /bin/Release/netcoreapp3.1/FuturiceCalculator.zip). 
   ```
   dotnet lambda package
   ```
+  
   * In the AWS Console, go to the Lambda Service section.
   * Click the link to the lambda function you created above (dotnet-lambda-futurice).
   * Under Code source click Upload from and select .zip file.
