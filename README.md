@@ -75,6 +75,8 @@ This project is deployed on AWS. Following services are created from AWS Console
 
 #### Create Lambda Function:
 
+  ###### Dot net core solution is packaged and deployed on AWS Lambda using following steps:
+  
   * Install the AWS Lambda Extensions for the dotnet CLI with the command dotnet tool. This tool enables you to package and deploy .NET Core applications to Lambda.
   ```
   install -g Amazon.Lambda.Tools
