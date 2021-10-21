@@ -7,7 +7,7 @@ An example calculus query:
 
 **Original query:** `2 * (23/(3*3))- 23 * (2*3)`
 
-**GET Endpoint:** `/calculus?query=[input]`
+**GET Endpoint:** `/calculator?query=[input]`
 
 Application Web API is designed in Asp Dot Net core and deployed in AWS leveraging following technology-:
   * **AWS VPC** - For newtwork security
@@ -24,12 +24,14 @@ Application Web API is designed in Asp Dot Net core and deployed in AWS leveragi
 
 ## API Reference
 
-#### Swagger:
+#### Swagger Page:
+
+   https://b33z9ie8lh.execute-api.us-east-1.amazonaws.com/swagger/index.html
 
 #### Get item:
    
 ```http
-  GET /calculus?query={input}
+  GET /calculator?query={input}
 ```
 
 | Parameter    | Type     | Description                                    |
@@ -37,7 +39,9 @@ Application Web API is designed in Asp Dot Net core and deployed in AWS leveragi
 | `query`      | `string` | **Required**. query to perform calculations on |
 
 #### Evaluate expression:
-'2 * (23/(3*3))- 23 * (2*3)'
+```2 * (23/(3*3))- 23 * (2*3)```
+
+https://b33z9ie8lh.execute-api.us-east-1.amazonaws.com/calculator?query=MSoyLTMvNCs1KjYtNyo4KzkvMTA=
 
 ## Project Architecture
 
@@ -47,19 +51,39 @@ Application Web API is designed in Asp Dot Net core and deployed in AWS leveragi
 
 ## Code Flow
 
+  * There are 3 sections of the code 
+    - Controller
+    - Model
+    - Service
+
+#### Controller:
+
+  * *CalculatorController.cs* handles incoming HTTP requests and sends response back to the caller.
+  * An HTTP get method is defined in the controller class.
+
+#### Model:
+
+  * A Model *CalcResponse.cs* represents data that is being transferred between controller components or any other related business logic.
+
+#### Service:
+
+  * This is the logical layer which aims at organizing business logic.
+  * *ExpressionParserService.cs* is responsible for evaluating/parsing the query expression passed via GET method.
+  * *LambdaFuturiceEntryPoint.cs* is a Lambda function handler responsible to integrating the web API with AWS Lambda function.
+
 ## Deployment Strategy
 
 This project is deployed on AWS. Following services are created from AWS Console-:
 
 1. **VPC**
    * CIDR block - 10.0.0.0/16
-   * 2 Public Subnets - in 2 Availaibility Zones to build a highly availaibile solution.
+   * 2 Public Subnets - in 2 Availaibility Zones to build a highly available solution.
 2. **API Gateway** 
-   * HTTP API created in AWS API Gateway
+   * HTTP API URL created in AWS API Gateway
 3. **AWS Lambda**
-   * Deployed Dot net core Api to AWS Lambda
+   * Deployed Dot net core API to AWS Lambda
 
-#### Create AWS VPC:
+#### AWS VPC:
 
   * VPC is created on CIDR block 10.0.0.0/16
   * 2 route tables are availble inside this VPC
@@ -68,12 +92,20 @@ This project is deployed on AWS. Following services are created from AWS Console
   * Security Groups
   * 2 Public Subnets created in 2 different availablility zones in order to make the system highly available and fault tolerant.
 
-#### Create API Gateway:
+#### API Gateway:
 
-  * The API solution created in Dot Net Core is deployed on API Gateway.
-  * This gateway connects with the 2 public subnets which further connects to the internet via Internet Gateway
+  * API gateway is an API management tool that sits between a client and a collection of backend services.
+  * HTTP API URL is created in AWS API Gateway to enable users to invoke our Lambda function via public URL.
+  * This gateway connects with the 2 public subnets.
+  * Routes are configured by declaring the following:
+    - Method type: ANY
+    - Resource Path: /{Proxy+}
+      - [ANY /Proxy+] : is a greedy path variable that allows us to route to any action method(eg. /path1{input} , /path1/path2/{input}) with any HTTP method
+    - Integration Target: Lamda Function
+  * Routes direct incoming API requests to backend resources.
 
-#### Create Lambda Function:
+
+#### Lambda Function:
 
   ###### Dot net core solution is packaged and deployed on AWS Lambda using following steps:
   
@@ -88,10 +120,10 @@ This project is deployed on AWS. Following services are created from AWS Console
   ```
   
   * In the AWS Console, go to the Lambda Service section.
-  * Click the link to the lambda function you created above (dotnet-lambda-futurice).
-  * Under Code source click Upload from and select .zip file.
-  * Click Upload, select the application zip file you generated above (/bin/Release/netcoreapp3.1/FuturiceCalculator.zip) and click Save.
-  * Under Runtime settings click Edit.Update the Handler to point to the LambdaEntryPoint class you created above (FuturiceCalculator::FuturiceCalculator.LambdaFuturiceEntryPoint::FunctionHandlerAsync).
-  * Click Save.
+  * Click the link to the created lambda function.
+  * Upload .zip file packaged (FuturiceCalculator.zip)
+  * Under Runtime settings click Edit. 
+  * Update the Handler to point to the created LambdaEntryPoint class (FuturiceCalculator::FuturiceCalculator.LambdaFuturiceEntryPoint::FunctionHandlerAsync).
+
 
 ## Tests
