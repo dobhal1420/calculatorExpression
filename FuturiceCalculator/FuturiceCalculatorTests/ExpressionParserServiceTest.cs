@@ -17,7 +17,7 @@ namespace FuturiceCalculatorTests
     {
         [Theory]
         [ClassData(typeof(TestDataGenerationDataSet))]
-        public void TestExpressionParserService(string input,decimal expectedOutput)
+        public async Task TestExpressionParserService(string input,decimal expectedOutput)
         {
             //Arrange
             var logger = new Mock<ILogger<ExpressionParserService>>();            
@@ -27,7 +27,7 @@ namespace FuturiceCalculatorTests
             var base64 = Convert.ToBase64String(valueBytes);
 
             //Act
-            var result = expressionParserService.EvaluateExpression(base64);
+            var result = await expressionParserService.EvaluateExpression(base64).ConfigureAwait(false);
 
             Assert.Equal(result, expectedOutput);
 
@@ -45,7 +45,7 @@ namespace FuturiceCalculatorTests
             var base64 = Convert.ToBase64String(valueBytes);
 
             //Act
-            Assert.Throws<FormatException>(() => expressionParserService.EvaluateExpression(base64));
+            Assert.ThrowsAsync<FormatException>(() => expressionParserService.EvaluateExpression(base64));
 
         }
 
@@ -61,7 +61,7 @@ namespace FuturiceCalculatorTests
             var base64 = Convert.ToBase64String(valueBytes);
             
             //Act
-            Assert.Throws<EvaluateException>(() => expressionParserService.EvaluateExpression(base64));
+            Assert.ThrowsAsync<EvaluateException>(() => expressionParserService.EvaluateExpression(base64));
 
         }
 
@@ -77,7 +77,7 @@ namespace FuturiceCalculatorTests
             var base64 = Convert.ToBase64String(valueBytes);
 
             //Act
-            Assert.Throws<SyntaxErrorException>(() => expressionParserService.EvaluateExpression(base64));
+            Assert.ThrowsAsync<SyntaxErrorException>(() => expressionParserService.EvaluateExpression(base64));
 
         }
 
@@ -90,7 +90,7 @@ namespace FuturiceCalculatorTests
             var expressionParserService = new ExpressionParserService(logger.Object);
 
             //Act
-            Assert.Throws<ArgumentNullException>(() => expressionParserService.EvaluateExpression(input));
+            Assert.ThrowsAsync<ArgumentNullException>(() => expressionParserService.EvaluateExpression(input));
 
         }
     }

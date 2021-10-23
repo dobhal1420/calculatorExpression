@@ -19,7 +19,7 @@ namespace FuturiceCalculator.Service
         {
             _logger = logger;
         }
-        public decimal EvaluateExpression(string queryExpression)
+        public async Task<decimal> EvaluateExpression(string queryExpression)
         {
             try
             {
@@ -27,10 +27,13 @@ namespace FuturiceCalculator.Service
                 string expression = Encoding.UTF8.GetString(data);
 
                 _logger.Log(LogLevel.Debug, $"Expression : {expression}");
+                decimal result = 0;
 
-                decimal result = decimal.Parse(new DataTable().Compute(expression, null).ToString());
-
-                _logger.Log(LogLevel.Debug, $"Result : {result}");
+                await Task.Run(() =>
+                {
+                    result = decimal.Parse(new DataTable().Compute(expression, null).ToString());
+                    _logger.Log(LogLevel.Debug, $"Result : {result}");
+                }).ConfigureAwait(false); 
 
                 return result;
             }

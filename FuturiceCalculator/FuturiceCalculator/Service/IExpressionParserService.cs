@@ -8,6 +8,6 @@ namespace FuturiceCalculator.Service
 {
     public interface IExpressionParserService
     {
-        decimal EvaluateExpression(string expression);
+        Task<decimal> EvaluateExpression(string expression);
     }
 }

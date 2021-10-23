@@ -34,7 +34,7 @@ namespace FuturiceCalculator.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CalcResponse))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult Get(string query)
+        public async Task<ActionResult> Get(string query)
         {
             CalcResponse calcResponse;
             
@@ -42,7 +42,7 @@ namespace FuturiceCalculator.Controllers
             {
                 query = query ?? throw new ArgumentNullException(nameof(query));
 
-                decimal result = _expressionParserService.EvaluateExpression(query);
+                decimal result = await _expressionParserService.EvaluateExpression(query).ConfigureAwait(false);
 
                 calcResponse = new CalcResponse() { Number = result,Error = false };
                 
