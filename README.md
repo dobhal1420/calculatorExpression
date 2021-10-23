@@ -16,6 +16,7 @@ Application Web API is designed in Asp Dot Net core and deployed in AWS leveragi
 
 ## Contents
   * [API Reference](#api-reference)
+  * [How to Run](#how-to-run)
   * [Project Architecture](#project-architecture)
   * [Code Flow](#code-flow)
   * [Deployment Strategy](#deployment-strategy)
@@ -42,6 +43,19 @@ Application Web API is designed in Asp Dot Net core and deployed in AWS leveragi
 ```2 * (23/(3*3))- 23 * (2*3)```
 
 https://b33z9ie8lh.execute-api.us-east-1.amazonaws.com/calculator?query=MSoyLTMvNCs1KjYtNyo4KzkvMTA=
+
+## How to Run
+
+Switch to windows container if using docker desktop.
+Run a Docker Compose Command in command prompt.
+
+```
+>> cd Futurice\calculatorExpression\FuturiceCalculator
+>> docker-compose up
+```
+
+Browse Url
+http:/localhost:8080/swagger/index.html
 
 ## Project Architecture
 
