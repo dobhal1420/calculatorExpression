@@ -46,7 +46,7 @@ https://b33z9ie8lh.execute-api.us-east-1.amazonaws.com/calculator?query=MSoyLTMv
 ## Project Architecture
 
 
-   ![Architecture Diagram](https://github.com/dobhal1420/calculatorExpression/blob/dobhal1420-patch-1/Futurice_Calculator.jpeg)
+   ![Architecture Diagram](https://github.com/dobhal1420/calculatorExpression/blob/main/Futurice_Calculator.jpeg)
 
 
 ## Code Flow
